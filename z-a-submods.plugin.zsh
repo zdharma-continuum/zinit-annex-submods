@@ -8,9 +8,9 @@
 autoload -Uz →za-submods-atclone-handler →za-submods-atpull-handler \
         →za-submods-atclone-help-handler →za-submods-atpull-help-handler
 
-@zinit-register-annex "z-a-submods" hook:atclone-30 \
+@zinit-register-annex "zinit-annex-submods" hook:atclone-30 \
         →za-submods-atclone-handler →za-submods-atclone-help-handler \
         "submods''" # register a new ice-mod: submods''
 
-@zinit-register-annex "z-a-submods" hook:%atpull-30 \
+@zinit-register-annex "zinit-annex-submods" hook:%atpull-30 \
         →za-submods-atpull-handler →za-submods-atpull-help-handler

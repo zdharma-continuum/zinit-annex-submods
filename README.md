@@ -22,14 +22,14 @@ zinit ice svn submods'zsh-users/zsh-autosuggestions -> external'
 zinit snippet PZT::modules/autosuggestions
 ```
 
-![screenshot](https://raw.githubusercontent.com/zinit-zsh/z-a-submods/master/images/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/zinit-zsh/zinit-annex-submods/master/images/screenshot.png)
 
 # Installation
 
 Simply load as a plugin. This will install the annex within Zinit:
 
 ```zsh
-zinit light zinit-zsh/z-a-submods
+zinit light zinit-zsh/zinit-annex-submods
 ```
 
 After this you can use the `submods''` ice.
