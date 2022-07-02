@@ -1,1 +1,4 @@
-# vim:ft=zsh:sts=4:sw=4:et:tw=75
+#!/usr/bin/env zsh
+#
+# Copyright (c) 2016-2020 Sebastian Gniazdowski and contributors
+# Copyright (c) 2021-2022 zdharma-continuum and contributors
