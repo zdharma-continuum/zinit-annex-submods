@@ -1,33 +1,33 @@
+#!/usr/bin/env zsh
+#
+# -*- mode: sh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim:ft=zsh:sw=2:sts=2:et:
+#
+# Copyright (c) 2016-2021 Sebastian Gniazdowski and contributors
+# Copyright (c) 2021-2022 zdharma-continuum and contributors
+#
+
 emulate -L zsh -o extendedglob -o warncreateglobal -o typesetsilent
 
 [[ -z "${ICE[submods]}" ]] && return 0
-
-[[ "$1" = plugin ]] && \
-    local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5" || \
-    local type="$1" url="$2" id_as="$3" dir="$4"
+[[ "$1" = plugin ]] && local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5"  || local type="$1" url="$2" id_as="$3" dir="$4"
 
 local -a mods parts lines
 local mod
+mods=(${(@s.;.)ICE[submods]})
 
-mods=( ${(@s.;.)ICE[submods]} )
 for mod in "${mods[@]}"; do
-    parts=( "${(@s:->:)mod}" )
-    # Remove only leading and trailing whitespace
-    parts=( "${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}" )
-
-    print -r -- "zinit-annex-submods: ${ZINIT[col-bar]}@@${ZINIT[col-rst]} Updating submodule ${ZINIT[col-bar]}@@${ZINIT[col-rst]}: ${ZINIT[col-pname]}${parts[1]}${ZINIT[col-rst]}" \
-            "(directory: ${ZINIT[col-info]}${parts[2]}${ZINIT[col-rst]})"
-    if [[ "${parts[1]}" != (http|https|ftp|ftps|scp)://* ]]; then
-        parts[1]="https://github.com/${parts[1]}"
-    fi
-
-    command git -C "$dir/${parts[2]}" fetch
-    lines=( ${(f)"$(command git -C "$dir/${parts[2]}" log --color --date=short --pretty=format:'%Cgreen%cd %h %Creset%s %Cred%d%Creset%n' ..FETCH_HEAD)"} )
-    # Remove the (origin/master ...) segments, to expect only tags to appear
-    lines=( "${(S)lines[@]//\(([,[:blank:]]#(origin|HEAD|master)[^a-zA-Z]##(HEAD|origin|master)[,[:blank:]]#)#\)/}" )
-    (( $#lines )) && print -rl -- "${lines[@]}"
-    command git -C "$dir/${parts[2]}" pull  --no-stat ${=ICE[pullopts]:---ff-only} origin |& { command egrep -v '(FETCH_HEAD|up to date\.|From.*://)' || : }
+  parts=("${(@s:->:)mod}")
+  parts=("${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}")
+  print -r -- "zinit-annex-submods: ${ZINIT[col-bar]}@@${ZINIT[col-rst]} Updating submodule ${ZINIT[col-bar]}@@${ZINIT[col-rst]}: ${ZINIT[col-pname]}${parts[1]}${ZINIT[col-rst]}" "(directory: ${ZINIT[col-info]}${parts[2]}${ZINIT[col-rst]})"
+  if [[ "${parts[1]}" != (http|https|ftp|ftps|scp)://* ]]; then
+    parts[1]="https://github.com/${parts[1]}"
+  fi
+  command git -C "$dir/${parts[2]}" fetch
+  lines=(${(f)"$(command git -C "$dir/${parts[2]}" log --color --date=short --pretty=format:'%Cgreen%cd %h %Creset%s %Cred%d%Creset%n' ..FETCH_HEAD)"})
+  lines=("${(S)lines[@]//\(([,[:blank:]]#(origin|HEAD|master)[^a-zA-Z]##(HEAD|origin|master)[,[:blank:]]#)#\)/}")
+  (( $#lines )) && print -rl -- "${lines[@]}"
+  command git -C "$dir/${parts[2]}" pull --no-stat ${=ICE[pullopts]:---ff-only} origin 2>&1 | {
+    command egrep -v '(FETCH_HEAD|up to date\.|From.*://)' || :
+  }
 done
-
-# vim:ft=zsh:sts=4:sw=4:et
-

@@ -1,28 +1,30 @@
+#!/usr/bin/env zsh
+#
+# -*- mode: sh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim:ft=zsh:sw=2:sts=2:et:
+#
+# Copyright (c) 2016-2021 Sebastian Gniazdowski and contributors
+# Copyright (c) 2021-2022 zdharma-continuum and contributors
+#
+
 emulate -L zsh -o extendedglob -o warncreateglobal -o typesetsilent
 
 [[ -z "${ICE[submods]}" ]] && return 0
-
-[[ "$1" = plugin ]] && \
-    local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5" || \
-    local type="$1" url="$2" id_as="$3" dir="$4"
+[[ "$1" = plugin ]] && local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5"  || local type="$1" url="$2" id_as="$3" dir="$4"
 
 local -a mods parts
 local mod
+mods=(${(@s.;.)ICE[submods]})
 
-mods=( ${(@s.;.)ICE[submods]} )
 for mod in "${mods[@]}"; do
-    parts=( "${(@s:->:)mod}" )
-    # Remove only leading and trailing whitespace
-    parts=( "${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}" )
+  parts=("${(@s:->:)mod}")
+  parts=("${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}")
 
-    print -r -- "zinit-annex-submods: ${ZINIT[col-bar]}@@${ZINIT[col-rst]} Cloning submodule ${ZINIT[col-bar]}@@${ZINIT[col-rst]}: ${ZINIT[col-pname]}${parts[1]}${ZINIT[col-rst]}" \
-            "to ${ZINIT[col-info]}${parts[2]}${ZINIT[col-rst]}"
-    if [[ "${parts[1]}" != (http|https|ftp|ftps|scp)://* ]]; then
-        parts[1]="https://github.com/${parts[1]}"
-    fi
+  print -r -- "zinit-annex-submods: ${ZINIT[col-bar]}@@${ZINIT[col-rst]} Cloning submodule ${ZINIT[col-bar]}@@${ZINIT[col-rst]}: ${ZINIT[col-pname]}${parts[1]}${ZINIT[col-rst]}" "to ${ZINIT[col-info]}${parts[2]}${ZINIT[col-rst]}"
 
-    command git -C "$dir" clone --progress "${parts[1]}" "${parts[2]}" |& \
-        ${ZINIT[BIN_DIR]}/share/git-process-output.zsh
+  if [[ "${parts[1]}" != (http|https|ftp|ftps|scp)://* ]]; then
+    parts[1]="https://github.com/${parts[1]}"
+  fi
+
+  command git -C "$dir" clone --progress "${parts[1]}" "${parts[2]}" 2>&1 | ${ZINIT[BIN_DIR]}/share/git-process-output.zsh
 done
-
-# vim:ft=zsh:sts=4:sw=4:et
