@@ -1,11 +1,7 @@
 #!/usr/bin/env zsh
 #
-# -*- mode: sh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
-# vim:ft=zsh:sw=2:sts=2:et:
-#
 # Copyright (c) 2016-2021 Sebastian Gniazdowski and contributors
 # Copyright (c) 2021-2022 zdharma-continuum and contributors
-#
 
 emulate -L zsh -o extendedglob -o warncreateglobal -o typesetsilent
 
@@ -20,7 +16,7 @@ for mod in "${mods[@]}"; do
   parts=("${(@s:->:)mod}")
   parts=("${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}")
 
-  print -r -- "zinit-annex-submods: ${ZINIT[col-bar]}@@${ZINIT[col-rst]} Cloning submodule ${ZINIT[col-bar]}@@${ZINIT[col-rst]}: ${ZINIT[col-pname]}${parts[1]}${ZINIT[col-rst]}" "to ${ZINIT[col-info]}${parts[2]}${ZINIT[col-rst]}"
+  print -r -- "[submods annex] ${ZINIT[col-bar]}@@${ZINIT[col-rst]} Cloning submodule ${ZINIT[col-bar]}@@${ZINIT[col-rst]}: ${ZINIT[col-pname]}${parts[1]}${ZINIT[col-rst]}" "to ${ZINIT[col-info]}${parts[2]}${ZINIT[col-rst]}"
 
   if [[ "${parts[1]}" != (http|https|ftp|ftps|scp)://* ]]; then
     parts[1]="https://github.com/${parts[1]}"
@@ -28,3 +24,5 @@ for mod in "${mods[@]}"; do
 
   command git -C "$dir" clone --progress "${parts[1]}" "${parts[2]}" 2>&1 | ${ZINIT[BIN_DIR]}/share/git-process-output.zsh
 done
+
+# vim: set expandtab filetype=zsh shiftwidth=2 softtabstop=2 tabstop=2:

@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+#
+# Copyright (c) 2016-2021 Sebastian Gniazdowski and contributors
+# Copyright (c) 2021-2022 zdharma-continuum and contributors
+
+print -- "\nThe ice ${ZINIT[col-info2]}submods''${ZINIT[col-rst]} is currently" "being registered by ${ZINIT[col-pname]}zinit-annex-submods${ZINIT[col-rst]}"
+print -- "Its syntax is:""${ZINIT[col-info2]}submods'${ZINIT[col-uname]}{user}${ZINIT[col-rst]}/""${ZINIT[col-pname]}{plugin}${ZINIT[col-info2]} –>" "${ZINIT[col-p]}{output-dir}${ZINIT[col-rst]}${ZINIT[col-info2]}; ...'${ZINIT[col-rst]}"
+print -- \
+  "It will clone the ${ZINIT[col-uname]}{user}${ZINIT[col-rst]}/""${ZINIT[col-pname]}{plugin}${ZINIT[col-rst]} from GitHub into the" \
+  "${ZINIT[col-p]}{output-dir}${ZINIT[col-rst]}" "inside the containing plugin or snippet." \
+  "The submodule will be correctly updated on" "${ZINIT[col-info2]}\`zinit update ...'${ZINIT[col-rst]}"
+
+# vim: set expandtab filetype=zsh shiftwidth=2 softtabstop=2 tabstop=2:
