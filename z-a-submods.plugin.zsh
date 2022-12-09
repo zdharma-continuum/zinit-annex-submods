@@ -14,5 +14,5 @@
 
 autoload -Uz za-submods-atclone-handler za-submods-atpull-handler za-submods-atclone-help-handler za-submods-atpull-help-handler
 
-@zinit-register-annex "zinit-annex-submods" hook:atclone-30 za-submods-atclone-handler za-submods-atclone-help-handler "submods''"
-@zinit-register-annex "zinit-annex-submods" hook:%atpull-30 za-submods-atpull-handler za-submods-atpull-help-handler
+@zi::register-annex "zinit-annex-submods" hook:atclone-30 za-submods-atclone-handler za-submods-atclone-help-handler "submods''"
+@zi::register-annex "zinit-annex-submods" hook:%atpull-30 za-submods-atpull-handler za-submods-atpull-help-handler
