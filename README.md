@@ -1,10 +1,8 @@
 # zinit-annex-submods
 
-An annex (i.e., an extension for
-[Zinit](https://github.com/zdharma-continuum/zinit) –
-[more information](https://zdharma-continuum.github.io/zinit/wiki/Annexes/))
-that allows Zinit to clone additional submodules when installing a plugin or
-snippet. The submodules are then automatically updated on the `zinit update ...`
+An annex (i.e., an extension for [Zinit](https://github.com/zdharma-continuum/zinit) –
+[more information](https://zdharma-continuum.github.io/zinit/wiki/Annexes/)) that allows Zinit to clone additional
+submodules when installing a plugin or snippet. The submodules are then automatically updated on the `zinit update ...`
 command.
 
 ![screenshot](./images/screenshot.png)
