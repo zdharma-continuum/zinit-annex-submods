@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+#
+# Copyright (c) 2016-2021 Sebastian Gniazdowski and contributors
+# Copyright (c) 2021-2022 zdharma-continuum and contributors
+#
+#
++zinit-message "
+{ice}submods{rst} - zinit-annex-submods
+  Usage: submods'{REPOSITORY} –> {SUBMODULE_NAME}'
+
+  It initializes the submodule inside the parent plugin or snippet.
+"
+
+# vim: set expandtab filetype=zsh shiftwidth=4 softtabstop=4 tabstop=4:
