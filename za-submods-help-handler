@@ -4,7 +4,7 @@
 # Copyright (c) 2021-2022 zdharma-continuum and contributors
 #
 #
-+zinit-message "
++zi-log "
 {ice}submods{rst} - zinit-annex-submods
   Usage: submods'{REPOSITORY} –> {SUBMODULE_NAME}'
 

@@ -21,7 +21,7 @@ for mod in "${mods[@]}"; do
     parts=("${(@s:->:)mod}")
     parts=("${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}")
 
-    +zinit-message "{m} zinit-annex-submods: Cloning submodule {file}$parts[1]{rst} into $parts[2]"
+    +zi-log "{m} {b}submods annex{rst}: Cloning submodule {file}$parts[1]{rst} into $parts[2]"
 
     if [[ $parts[1] != (ftp|ftps|http|https|scp)://* ]]; then
         parts[1]="https://github.com/${parts[1]}"
