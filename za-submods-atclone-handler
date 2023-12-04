@@ -19,14 +19,13 @@ mods=(${(@s.;.)ICE[submods]})
 
 for mod in "${mods[@]}"; do
     parts=("${(@s:->:)mod}")
-    parts=("${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}")
-
-    +zinit-message "{m} zinit-annex-submods: Cloning submodule {file}$parts[1]{rst} into $parts[2]"
+    parts=(${${parts[@]##[[:blank:]]##}%%[[:blank:]]##})
 
     if [[ $parts[1] != (ftp|ftps|http|https|scp)://* ]]; then
         parts[1]="https://github.com/${parts[1]}"
     fi
 
+    +zi-log "{m} {b}submods{rst}: Cloning submodule {file}$parts[1]{rst} into $parts[2]"
     command git -C "$dir" clone --progress "$parts[1]" "$parts[2]" 2>&1 | ${ZINIT[BIN_DIR]}/share/git-process-output.zsh
 done
 

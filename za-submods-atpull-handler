@@ -19,9 +19,9 @@ mods=(${(@s.;.)ICE[submods]})
 
 for mod in "${mods[@]}"; do
     parts=("${(@s:->:)mod}")
-    parts=("${parts[@]//((#s)[[:space:]]##|[[:space:]]##(#e))/}")
+    parts=(${${parts[@]##[[:blank:]]##}%%[[:blank:]]##})
 
-    +zinit-message "{m} zinit-annex-submods: Updating submodule $parts[1] (path: $parts[2])"
+    +zi-log "{m} {b}submods{rst}: Updating submodule $parts[1] (path: $parts[2])"
 
     if [[ "${parts[1]}" != (http|https|ftp|ftps|scp)://* ]]; then
         parts[1]="https://github.com/${parts[1]}"
